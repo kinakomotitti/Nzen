@@ -1,0 +1,41 @@
+﻿@model HomeModel
+
+<form>
+    <div class="wrapper">
+        <div class="page-header page-header-small">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('/images/meeting_back.jpg');">
+            </div>
+            <div class="content-center">
+                <div class="container">
+                    <h1 class="title">This is waiting room</h1>
+                    <div class="text-center">
+                        <a href="https://www.slideshare.net/" class="btn btn-primary btn-icon btn-round">
+                            <i class="fab ">s</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section section-team text-center">
+            <div class="container">
+                <div class="team">
+                    <div class="row">
+                        <label for="comment">embeded iflame:</label>
+                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "comment", @row = 5, @placeholder="ここにSlideshareのリンクを貼り付けて下さい" })
+                        <button class="btn btn-primary btn-round" type="submit" asp-action="PresenterContact" >
+                            Start Presentation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form">
+    </div>
+    <div>
+    </div>
+    <div hidden>
+        @Html.TextBoxFor(model => model.UserName, new { @id = "userName" })
+        @Html.TextBoxFor(model => model.GroupId, new { @id = "groupId" })
+    </div>
+</form>

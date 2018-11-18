@@ -1,0 +1,47 @@
+﻿@model HomeModel
+@{
+    Layout = "~/Views/Shared/_Layout_presentor.cshtml";
+}
+
+<div id="nicoscreen" class="overpanel slideshare">
+    @if (String.IsNullOrWhiteSpace(Model.Content) == true)
+    {
+        <iframe id="nicoframe" src="//www.slideshare.net/slideshow/embed_code/key/u6WNbsR5worSzC" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen></iframe>
+        <div style="margin-bottom:5px">
+            <strong>
+                <a href="//www.slideshare.net/EdurekaIN/what-is-artificial-intelligence-artificial-intelligence-tutorial-for-beginners-edureka" title="What is Artificial Intelligence | Artificial Intelligence Tutorial For Beginners | Edureka" target="_blank">What is Artificial Intelligence | Artificial Intelligence Tutorial For Beginners | Edureka</a>
+            </strong> from <strong>
+                <a href="https://www.slideshare.net/EdurekaIN" target="_blank">
+                    Edureka!
+                </a>
+            </strong>
+        </div>
+    }
+    else
+    {
+        @Html.Raw(Model.Content)
+    }
+</div>
+<div hidden>
+    @Html.TextBoxFor(model => model.UserName, new { @id = "userName" })
+    @Html.TextBoxFor(model => model.GroupId, new { @id = "groupId" })
+</div>
+<script src="~/js/NicoScreen.js"></script>
+<script type="text/javascript">
+    var obj = {
+        //基本情報が設定できます
+        "base": {
+            color: "White", //文字の色を指定します
+            speed: "normal", //文字が流れるスピードを指定します。slow/fast/normal
+            interval: "normal",//文字が流れる間隔を指定します。slow/fast/normal
+            font_size: "30px", //フォントのサイズを指定します。
+            loop: false //文字が最後まで流れた後に、繰り返すかどうか　true/false
+        },
+
+        "comments": [
+            "", //Error防止用
+        ]
+    };
+    nicoscreen.set(obj);
+    nicoscreen.start();
+</script>

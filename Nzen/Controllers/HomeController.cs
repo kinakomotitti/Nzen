@@ -1,43 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Nzen.Models;
-
-namespace Nzen.Controllers
+﻿namespace Nzen.Controllers
 {
+    #region using
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Nzen.Models;
+    #endregion
+
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        #region Common
+
+        public IActionResult Index(HomeModel model)
         {
-            return View();
+            return View(model);
         }
 
-        public IActionResult About()
+        public IActionResult Welcome(HomeModel model)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return View(model);
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+        #endregion
 
-            return View();
+        #region user
+
+        public IActionResult Contact(HomeModel model)
+        {
+                ViewData["Message"] = "Your contact page.";
+
+            return View(model);
+        }
+        #endregion
+
+        #region presenter
+
+        public IActionResult PresenterPrepare(HomeModel model)
+        {
+            return View(model);
         }
 
-        public IActionResult Privacy()
+        public IActionResult PresenterContact(HomeModel model)
         {
-            return View();
+            return View(model);
         }
+
+        #endregion
+
+        #region system error
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        #endregion
+
     }
 }
