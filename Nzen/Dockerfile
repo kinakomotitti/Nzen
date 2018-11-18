@@ -3,6 +3,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["Nzen/Nzen.csproj", "Nzen/"]
