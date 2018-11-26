@@ -21,12 +21,21 @@
     {
         @Html.Raw(Model.Content)
     }
+
 </div>
+<div id="phraseDiv" class="blockquote blockquote-primary " style="height:10%">
+</div>
+
+
 <div hidden>
     @Html.TextBoxFor(model => model.UserName, new { @id = "userName" })
     @Html.TextBoxFor(model => model.GroupId, new { @id = "groupId" })
 </div>
+
 <script src="~/js/NicoScreen.js"></script>
+<script src="~/lib/SpeechSDK-JavaScript-1.1.0/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+<script src="~/js/SpeechSDKImpl.js"></script>
+
 <script type="text/javascript">
     var obj = {
         //基本情報が設定できます
