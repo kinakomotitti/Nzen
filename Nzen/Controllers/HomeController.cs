@@ -31,10 +31,11 @@
 
         public IActionResult Contact(HomeModel model)
         {
-                ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Your contact page.";
 
             return View(model);
         }
+
         #endregion
 
         #region presenter
