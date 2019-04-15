@@ -11,8 +11,8 @@ var lastRecognized = "";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    subscriptionKey = "859b3e1bc5514b60819d09a4db722436";//document.getElementById("subscriptionKey");
-    regionKey = "eastus";//document.getElementById("regionKey");
+    subscriptionKey = document.getElementById("subscriptionKey");
+    regionKey = document.getElementById("regionKey");
 
     phraseDiv = document.getElementById("phraseDiv");
     phraseDiv.innerHTML = "";
