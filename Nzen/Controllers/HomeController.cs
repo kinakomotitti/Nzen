@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Nzen.Manager;
     using Nzen.Models;
     #endregion
 
@@ -48,7 +47,6 @@
 
         public IActionResult PresenterContact(HomeModel model)
         {
-            model.Env = ApplicationEnv.Env;
             return View(model);
         }
 
