@@ -45,7 +45,6 @@
         {
             await base.OnConnectedAsync();
             await Clients.Caller.SendAsync("GetConnectionId", Context.ConnectionId);
-            Manager.Log.Logger.Debug($"{Context.ConnectionId} Connected");
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
