@@ -1,5 +1,6 @@
 ﻿namespace Nzen.Models
 {
+    using Nzen.Manager;
     #region using
     using System;
     using System.Collections.Generic;
@@ -12,5 +13,7 @@
         public string UserName { get; set; } = string.Empty;
         public string GroupId { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
+
+        public ApplicationEnv Env { get; set; }
     }
 }
