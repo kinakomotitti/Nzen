@@ -63,6 +63,7 @@ namespace Nzen
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseMvc(routes =>
