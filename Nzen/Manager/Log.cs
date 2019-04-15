@@ -11,9 +11,9 @@ namespace Nzen.Manager
     public class Log
     {
         public static Log Logger { get; set; } = new Log();
-        private readonly ILog log = LogManager.GetLogger(typeof(Log));
+        private readonly ILog log = LogManager.GetLogger(typeof(Hubs.ChatHub));
 
-        public Log()
+        private Log()
         {
             XmlDocument log4netConfig = new XmlDocument();
             log4netConfig.Load(System.IO.File.OpenRead("log4net.config"));
@@ -27,5 +27,9 @@ namespace Nzen.Manager
             this.log.Debug(message);
         }
 
+        public void Info(string message)
+        {
+            this.log.Info(message);
+        }
     }
 }
