@@ -30,10 +30,12 @@
 <div hidden>
     @Html.TextBoxFor(model => model.UserName, new { @id = "userName" })
     @Html.TextBoxFor(model => model.GroupId, new { @id = "groupId" })
+    @Html.TextBoxFor(model => model.Env.SpeechAPI_Region, new { @id = "regionKey" })
+    @Html.TextBoxFor(model => model.Env.SpeechAPI_Key, new { @id = "subscriptionKey" })
 </div>
 
 <script src="~/js/NicoScreen.js"></script>
-<script src="~/lib/SpeechSDK-JavaScript-1.1.0/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+<script src="~/lib/SpeechSDK-JavaScript-1.4.1/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
 <script src="~/js/SpeechSDKImpl.js"></script>
 
 <script type="text/javascript">

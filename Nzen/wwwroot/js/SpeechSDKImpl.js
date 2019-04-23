@@ -11,8 +11,8 @@ var lastRecognized = "";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    subscriptionKey = "859b3e1bc5514b60819d09a4db722436";//document.getElementById("subscriptionKey");
-    regionKey = "eastus";//document.getElementById("regionKey");
+    subscriptionKey = document.getElementById("subscriptionKey").value;
+    regionKey = document.getElementById("regionKey").value;
 
     phraseDiv = document.getElementById("phraseDiv");
     phraseDiv.innerHTML = "";
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (authorizationToken) {
 
-        speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authorizationToken, regionKey.value);
+        speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authorizationToken, regionKey);
 
     } else {
 
@@ -43,5 +43,5 @@ document.addEventListener("DOMContentLoaded", function () {
         phraseDiv.innerHTML = e.result.text;//lastRecognized;
     };
 
-    recognizer.startContinuousRecognitionAsync();
+     recognizer.startContinuousRecognitionAsync();
 });
