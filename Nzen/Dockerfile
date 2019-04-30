@@ -1,7 +1,8 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 ENV ConnectionString="Host=localhost;Port=5432;Username=postgres;Password=postgres; Database=nzen_db" \
     SpeechAPI_Key="b922769d8f6f45a7a7f8143c4126384c" \
-	SpeechAPI_Region="japaneast"
+	SpeechAPI_Region="japaneast" \
+	UseDataBase="true"
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443

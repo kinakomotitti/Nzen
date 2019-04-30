@@ -2,6 +2,7 @@
 {
     #region using
     using Microsoft.AspNetCore.SignalR;
+    using Nzen.Manager;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -33,6 +34,13 @@
 
         public Task SendMessageToGroups(string user, string message, string group)
         {
+            var useDatabase = true;
+            bool.TryParse(ApplicationEnv.Env.UseDataBase, out useDatabase);
+            if (useDatabase == true)
+            {
+                DatabaseManager.Executor.InsertEventContents(user, message, message);
+            }
+
             List<string> groups = new List<string>() { group };
             return Clients.Groups(groups).SendAsync("ReceiveMessage", user, message, Context.ConnectionId);
         }
