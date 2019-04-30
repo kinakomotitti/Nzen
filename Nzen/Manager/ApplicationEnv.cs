@@ -42,6 +42,11 @@
         /// </summary>
         public string SpeechAPI_Region { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Database利用に関するオプションの設定
+        /// </summary>
+        public string UseDataBase { get; set; } = "true";
+
         #endregion
     }
 }

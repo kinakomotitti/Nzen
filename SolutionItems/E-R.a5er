@@ -1,0 +1,94 @@
+﻿# A5:ER FORMAT:13
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+CommonField="登録日時","insert_date","@DATETIME",,,"","",$FFFFFFFF
+CommonField="登録者","insert_user","@VARCHAR",,,"","",$FFFFFFFF
+CommonField="更新日時","update_date","@DATETIME",,,"","",$FFFFFFFF
+CommonField="更新者","update_user","@VARCHAR",,,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=mst_code
+LName=コードマスタ
+Comment=
+TableOption=
+Page=Main
+Left=100
+Top=100
+Field="code_id","code_id","character varying","NOT NULL",0,"","",$FFFFFFFF,""
+Field="code_name","code_name","character varying",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190430175512
+Position="Main",100,100,194,205
+ZOrder=0
+
+[Entity]
+PName=tran_event_overview
+LName=イベント情報概要
+Comment=
+TableOption=
+Page=Main
+Left=100
+Top=400
+Field="イベントコード","event_id","@VARCHAR","NOT NULL",0,"","",$FFFFFFFF,""
+Field="イベント登録日時","event_entry_date","@DATETIME",,,"","",$FFFFFFFF,""
+Field="イベント名","event_name","@VARCHAR",,,"","",$FFFFFFFF,""
+Field="主催者","event_host_user_name","@VARCHAR",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190430175458
+Position="Main",100,400,299,294
+ZOrder=1
+
+[Entity]
+PName=tran_event_info_detail
+LName=イベント情報詳細
+Comment=
+TableOption=
+Page=Main
+Left=500
+Top=100
+Field="イベントコード","event_code","@VARCHAR","NOT NULL",0,"","",$FFFFFFFF,""
+Field="情報種別","info_type","@VARCHAR",,,"","",$FFFFFFFF,""
+Field="内容","data","@VARCHAR",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20190430182335
+Position="Main",500,100,396,391
+ZOrder=2
