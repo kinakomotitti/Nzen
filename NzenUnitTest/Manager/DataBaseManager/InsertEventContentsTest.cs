@@ -1,4 +1,4 @@
-﻿namespace NzenUnitTest.Manager
+﻿namespace NzenUnitTest.Manager.DatabaseManagerTest
 {
     #region using
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,8 +10,14 @@
     #endregion
 
     [TestClass]
-    public class DatabaseManagerTest
+    public class InsertEventContentsTest
     {
+        [TestInitialize]
+        public void TestInitFunction()
+        {
+            ApplicationEnv.Env.ConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres; Database=nzen_db";
+        }
+
         [TestMethod]
         public void TestMethod1()
         {

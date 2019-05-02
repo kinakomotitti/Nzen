@@ -20,11 +20,44 @@
             paramList.Add(new NpgsqlParameter("event_code", group));
             paramList.Add(new NpgsqlParameter("info_type", "test"));
             paramList.Add(new NpgsqlParameter("data", contents));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INSERT INTO public.tran_event_info_detail");
+            sb.Append("VALUES (");
+            sb.Append("@event_code,");
+            sb.Append("@info_type,");
+            sb.Append("@data,");
+            sb.Append("@insert_date,");
+            sb.Append("@insert_user, ");
+            sb.Append("@update_date,");
+            sb.Append("@update_user");
+            sb.Append(");");
+            this.ExecuteNonQuery(sb.ToString(), paramList);
+        }
+
+        public void InsertEventOverview(string groupId,string userName)
+        {
+            var paramList = new List<NpgsqlParameter>();
+            paramList.Add(new NpgsqlParameter("event_id", groupId));
+            paramList.Add(new NpgsqlParameter("event_entry_date", DateTime.Now));
+            paramList.Add(new NpgsqlParameter("event_host_user_name", userName));
             paramList.Add(new NpgsqlParameter("insert_date", DateTime.Now));
             paramList.Add(new NpgsqlParameter("insert_user", userName));
             paramList.Add(new NpgsqlParameter("update_date", DateTime.Now));
             paramList.Add(new NpgsqlParameter("update_user", userName));
-            this.ExecuteNonQuery("INSERT INTO public.tran_event_info_detail VALUES (@event_code, @info_type, @data, @insert_date, @insert_user, @update_date, @update_user)", paramList);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INSERT INTO public.tran_event_overview");
+            sb.Append(" VALUES (");
+            sb.Append("@event_id, ");
+            sb.Append("@event_entry_date, ");
+            sb.Append("@event_host_user_name, ");
+            sb.Append("@insert_date, ");
+            sb.Append("@insert_user, ");
+            sb.Append("@update_date, ");
+            sb.Append("@update_user");
+            sb.Append(");");
+
+            this.ExecuteNonQuery(sb.ToString(), paramList);
         }
 
 
