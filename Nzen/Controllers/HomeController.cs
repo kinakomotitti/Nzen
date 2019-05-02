@@ -23,6 +23,7 @@
 
         public IActionResult Welcome(HomeModel model)
         {
+            
             return View(model);
         }
 

@@ -3,6 +3,9 @@
     ViewData["Title"] = "Home Page";
     //Layout = "~/Views/Shared/_Layout_signin.cshtml";
 }
+<script type="text/javascript" src="./js/Index.js"></script>
+
+
 <!-- Navbar -->
 <div class="login-page">
     <!-- End Navbar -->
@@ -11,11 +14,22 @@
         <div class="content">
             <div class="container">
                 <div class="col-md-4 ml-auto mr-auto">
-                    <div class="card card-login card-plain">
-                        <form class="form" asp-controller="Home" asp-action="Welcome">
+
+
+                    <form id="forprezenter" class="form" asp-controller="Home" asp-action="Welcome" hidden>
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @id = "inputUserName2", @placeholder = "name" })
+                        @Html.TextBoxFor(model => model.GroupId, new { @class = "form-control", @id = "inputGroupId2", @placeholder = "groupID" })
+                    </form>
+
+
+
+                    <form id="foruser" class="form" asp-controller="Home" asp-action="Contact">
+                        <div class="card card-login card-plain">
                             <div class="card-header text-center">
                                 <div class="logo-container">
-                                    <img src="~/images/N.png" alt="">
+                                    <button type="submit" form="forprezenter" style="background:unset; border:none">
+                                        <img src="~/images/N.png" alt="">
+                                    </button>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -37,10 +51,12 @@
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <button class="btn btn-primary btn-round btn-lg btn-block" type="submit">Join Chat Room!</button>
+                                <button class="btn btn-primary btn-round btn-lg btn-block" type="submit" form="foruser">Join Chat Room!</button>
                             </div>
-                        </form>
-                    </div>
+                    </form>
+
+
+
                 </div>
             </div>
         </div>
