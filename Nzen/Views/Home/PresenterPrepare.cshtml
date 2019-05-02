@@ -20,9 +20,16 @@
             <div class="container">
                 <div class="team">
                     <div class="row">
+                        <label for="comment">
+                            your group ID is
+                            @Model.GroupId
+                        </label>
+                    </div>
+
+                    <div class="row">
                         <label for="comment">embeded iflame:</label>
-                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "comment", @row = 5, @placeholder="ここにSlideshareのリンクを貼り付けて下さい" })
-                        <button class="btn btn-primary btn-round" type="submit" asp-action="PresenterContact" >
+                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "comment", @row = 5, @placeholder = "ここにSlideshareのリンクを貼り付けて下さい" })
+                        <button class="btn btn-primary btn-round" type="submit" asp-action="PresenterContact">
                             Start Presentation
                         </button>
                     </div>

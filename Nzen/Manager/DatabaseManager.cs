@@ -16,18 +16,25 @@
         public void InsertEventContents(string userName, string group, string contents)
         {
             var paramList = new List<NpgsqlParameter>();
-            paramList.Add(new NpgsqlParameter("event_code", group));
-            paramList.Add(new NpgsqlParameter("info_type", "test"));
-            paramList.Add(new NpgsqlParameter("data", contents));
+            paramList.Add(new NpgsqlParameter("group_id", group));
+            paramList.Add(new NpgsqlParameter("group_entry_date", DateTime.Now));
+            paramList.Add(new NpgsqlParameter("data", "test"));
+            paramList.Add(new NpgsqlParameter("info_type", contents));
+            paramList.Add(new NpgsqlParameter("insert_date", DateTime.Now));
+            paramList.Add(new NpgsqlParameter("insert_user", userName));
+            paramList.Add(new NpgsqlParameter("update_date", DateTime.Now));
+            paramList.Add(new NpgsqlParameter("update_user", userName));
             StringBuilder sb = new StringBuilder();
-            sb.Append("INSERT INTO public.tran_event_info_detail");
+            sb.Append("INSERT INTO public.tran_event_info_detail ");
+            sb.Append("(group_id, group_entry_date, info_type, data, insert_date, insert_user, update_date, update_user)");
             sb.Append("VALUES (");
-            sb.Append("@event_code,");
+            sb.Append("@group_id,");
+            sb.Append("@group_entry_date,");
             sb.Append("@info_type,");
             sb.Append("@data,");
-            sb.Append("@insert_date,");
+            sb.Append("@insert_date, ");
             sb.Append("@insert_user, ");
-            sb.Append("@update_date,");
+            sb.Append("@update_date, ");
             sb.Append("@update_user");
             sb.Append(");");
             this.ExecuteNonQuery(sb.ToString(), paramList);

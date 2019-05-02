@@ -15,6 +15,7 @@ namespace Nzen
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Nzen.Hubs;
+    using Nzen.Manager;
     #endregion
 
     public class Startup

@@ -1,5 +1,5 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
-ENV ConnectionString="Host=localhost;Port=5432;Username=postgres;Password=postgres; Database=nzen_db" \
+ENV ConnectionString="Host=172.17.0.2;Port=5432;Username=postgres;Password=postgres; Database=nzen_db" \
     SpeechAPI_Key="b922769d8f6f45a7a7f8143c4126384c" \
 	SpeechAPI_Region="japaneast" \
 	UseDataBase="true"

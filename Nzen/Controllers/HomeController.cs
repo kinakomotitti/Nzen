@@ -21,20 +21,13 @@
             return View(model);
         }
 
-        public IActionResult Welcome(HomeModel model)
-        {
-            
-            return View(model);
-        }
-
         #endregion
 
         #region user
 
-        public IActionResult Contact(HomeModel model)
+        public IActionResult ChatRoom(HomeModel model)
         {
-                ViewData["Message"] = "Your contact page.";
-
+            ViewData["Message"] = "ChatRoom.";
             return View(model);
         }
         #endregion
@@ -43,6 +36,10 @@
 
         public IActionResult PresenterPrepare(HomeModel model)
         {
+            if (string.IsNullOrEmpty(model.GroupId))
+            {
+                model.GroupId = GroupIdManager.Instance.GetGroupId(model.UserName);
+            }
             return View(model);
         }
 
