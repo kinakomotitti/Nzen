@@ -1,8 +1,8 @@
 ﻿namespace Nzen.Manager
 {
-    using Npgsql;
     #region using
     using System;
+    using Npgsql;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -12,7 +12,6 @@
     public class DatabaseManager
     {
         public static DatabaseManager Executor { get; set; } = new DatabaseManager();
-
 
         public void InsertEventContents(string userName, string group, string contents)
         {
@@ -60,6 +59,8 @@
             this.ExecuteNonQuery(sb.ToString(), paramList);
         }
 
+
+        #region private
 
         private void ExecuteNonQuery(string sql, List<NpgsqlParameter> parameters)
         {
@@ -116,5 +117,8 @@
                 con.Close();
             }
         }
+
+        #endregion
+
     }
 }
