@@ -1,6 +1,6 @@
 ﻿@model HomeModel
 
-<form>
+<form method="post" asp-action="PresentationRoom" asp-controller="Home">
     <div class="wrapper">
         <div class="page-header page-header-small">
             <div class="page-header-image" data-parallax="true" style="background-image: url('/images/meeting_back.jpg');">
@@ -22,14 +22,14 @@
                     <div class="row">
                         <label for="comment">
                             your group ID is
-                            @Model.GroupId
+                            <strong>@Model.GroupId</strong>
                         </label>
                     </div>
 
                     <div class="row">
                         <label for="comment">embeded iflame:</label>
                         @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "comment", @row = 5, @placeholder = "ここにSlideshareのリンクを貼り付けて下さい" })
-                        <button class="btn btn-primary btn-round" type="submit" asp-action="PresenterContact">
+                        <button class="btn btn-primary btn-round" type="submit">
                             Start Presentation
                         </button>
                     </div>
@@ -37,12 +37,8 @@
             </div>
         </div>
     </div>
-    <div class="form">
-    </div>
-    <div>
-    </div>
     <div hidden>
-        @Html.TextBoxFor(model => model.UserName, new { @id = "userName" })
         @Html.TextBoxFor(model => model.GroupId, new { @id = "groupId" })
+        @Html.TextBoxFor(model => model.UserName, new { @id = "userName" })
     </div>
 </form>

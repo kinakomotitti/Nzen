@@ -17,15 +17,18 @@
     {
         #region Common
 
-        public IActionResult Index(HomeModel model)
+
+        [HttpGet]
+        public IActionResult Index()
         {
-            return View(model);
+            return View(new HomeModel());
         }
 
         #endregion
 
         #region user
 
+        [HttpPost]
         public IActionResult ChatRoom(HomeModel model)
         {
             ViewData["Message"] = "ChatRoom.";
@@ -35,7 +38,8 @@
 
         #region presenter
 
-        public IActionResult PresenterPrepare(HomeModel model)
+        [HttpPost]
+        public IActionResult PresenterPrepare([Bind("Content")]HomeModel model)
         {
             if (string.IsNullOrEmpty(model.GroupId))
             {
@@ -56,7 +60,8 @@
             return View(model);
         }
 
-        public IActionResult PresenterContact(HomeModel model)
+        [HttpPost]
+        public IActionResult PresentationRoom(HomeModel model)
         {
             model.Env = ApplicationEnv.Env;
             return View(model);

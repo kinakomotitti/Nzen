@@ -12,8 +12,6 @@
 
         public string Content { get; set; } = string.Empty;
 
-        public string ErrorMesage { get; set; } = string.Empty;
-
         public ApplicationEnv Env { get; set; }
     }
 }
