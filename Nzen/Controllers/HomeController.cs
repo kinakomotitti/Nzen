@@ -46,11 +46,11 @@
                 if (GroupIdManager.Instance.IsExistGroupId(model.GroupId)==false)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("指定されたグループIDは存在しません。");
-                    sb.Append("新しいグループIDおｗ作成する場合は、");
-                    sb.Append("グループIDを空白にしたままNzenアイコンをクリックしてください。");
+                    sb.AppendLine("指定されたグループIDは存在しません。\r\n");
+                    sb.AppendLine("新しいグループIDを作成する場合は、\r\n");
+                    sb.AppendLine("グループIDを空白にしたままJoinしてください。");
                     this.ViewData["ErrorMessage"] = sb.ToString();
-                    return View("Index", model);
+                    return View("Index", new HomeModel());
                 }
             }
             return View(model);

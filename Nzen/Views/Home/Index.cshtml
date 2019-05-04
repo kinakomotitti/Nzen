@@ -3,35 +3,42 @@
     ViewData["Title"] = "Home Page";
     //Layout = "~/Views/Shared/_Layout_signin.cshtml";
 }
-<script type="text/javascript" src="./js/Index.js"></script>
+<script type="text/javascript" src="~/js/Index.js"></script>
 
 
 <!-- Navbar -->
 <div class="login-page">
-    <!-- End Navbar -->
     <div class="page-header clear-filter" filter-color="orange">
         <div class="page-header-image" style="background-image:url(/images/login_back.jpg)"></div>
-        <div class="content">
-            <div class="container">
+        <!-- End Navbar -->
+
+        <div class="container">
+            <div class="content">
+                <div id="messageBox" class="alert alert-danger" role="alert" hidden>
+                    <div class="container">
+                        <strong>Error!</strong>
+                        <label id="errorLavel">@ViewData["ErrorMessage"]</label>
+                        <!-- TODO：いつか復活させるかも
+                        <button id="alartCloseButton" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="now-ui-icons ui-1_simple-remove"></i>
+                            </span>
+                        </button>
+                        -->
+                    </div>
+                </div>
                 <div class="col-md-4 ml-auto mr-auto">
 
-                    <div>
-                        <label class="label-danger" >@ViewData["ErrorMessage"]</label>
-                    </div>
-                    <form id="forprezenter" class="form" asp-controller="Home" asp-action="PresenterPrepare" hidden>
+                    <form id="forpresenter" class="form" asp-controller="Home" asp-action="PresenterPrepare" hidden>
                         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @id = "inputUserName2", @placeholder = "name" })
                         @Html.TextBoxFor(model => model.GroupId, new { @class = "form-control", @id = "inputGroupId2", @placeholder = "groupID" })
                     </form>
-
-
 
                     <form id="foruser" class="form" asp-controller="Home" asp-action="ChatRoom">
                         <div class="card card-login card-plain">
                             <div class="card-header text-center">
                                 <div class="logo-container">
-                                    <button type="submit" form="forprezenter" style="background:unset; border:none">
-                                        <img src="~/images/N.png" alt="">
-                                    </button>
+                                    <img src="~/images/N.png" alt="">
                                 </div>
                             </div>
                             <div class="card-body">
@@ -53,12 +60,12 @@
                                 </div>
                             </div>
                             <div class="card-footer text-center">
-                                <button class="btn btn-primary btn-round btn-lg btn-block" type="submit" form="foruser">Join Chat Room!</button>
+                                <button id="joinAudienceButton" class="btn btn-primary btn-round btn-lg btn-block" type="submit" form="foruser">Join as an audience</button>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button id="joinPresenterButton" class="btn btn-secondary btn-round btn-lg btn-block" type="submit" form="forpresenter">Join as a presenter</button>
                             </div>
                     </form>
-
-
-
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Npgsql;
     #endregion
 
     [TestClass]
@@ -21,14 +22,41 @@
         [TestMethod]
         public void TestMethod1()
         {
-            var actual = DatabaseManager.Executor.GroupIdExist("aaaaa");
-            Assert.AreEqual(false, actual);
+            var actual = DatabaseManager.Executor.GetGroupId("aaaaa", DateTime.Now);
+            Assert.IsTrue(string.IsNullOrEmpty(actual));
         }
         [TestMethod]
         public void TestMethod2()
         {
-            var actual = DatabaseManager.Executor.GroupIdExist("test1");
-            Assert.AreEqual(true, actual);
+            try
+            {
+                using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
+                {
+                    var command = con.CreateCommand();
+                    command.CommandText = "INSERT INTO tran_event_overview  (event_id,event_entry_date,event_host_user_name) VALUES ('test1','2019-01-01','test99')";
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+                var actual = DatabaseManager.Executor.GetGroupId("test1", new DateTime(2019, 1, 1));
+                Assert.IsFalse(string.IsNullOrEmpty(actual));
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
+                {
+                    var command = con.CreateCommand();
+                    command.CommandText = "DELETE FROM tran_event_overview WHERE event_entry_date='2019-01-01'";
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
         }
     }
 }
