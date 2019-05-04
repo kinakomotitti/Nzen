@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,18 @@
             if (string.IsNullOrEmpty(model.GroupId))
             {
                 model.GroupId = GroupIdManager.Instance.GetGroupId(model.UserName);
+            }
+            else
+            {
+                if (GroupIdManager.Instance.IsExistGroupId(model.GroupId)==false)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("指定されたグループIDは存在しません。");
+                    sb.Append("新しいグループIDおｗ作成する場合は、");
+                    sb.Append("グループIDを空白にしたままNzenアイコンをクリックしてください。");
+                    this.ViewData["ErrorMessage"] = sb.ToString();
+                    return View("Index", model);
+                }
             }
             return View(model);
         }

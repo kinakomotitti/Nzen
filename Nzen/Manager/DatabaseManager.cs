@@ -13,6 +13,8 @@
     {
         public static DatabaseManager Executor { get; set; } = new DatabaseManager();
 
+        #region Insert
+
         public void InsertEventContents(string userName, string group, string contents)
         {
             var paramList = new List<NpgsqlParameter>();
@@ -40,7 +42,7 @@
             this.ExecuteNonQuery(sb.ToString(), paramList);
         }
 
-        public void InsertEventOverview(string groupId,string userName)
+        public void InsertEventOverview(string groupId, string userName)
         {
             var paramList = new List<NpgsqlParameter>();
             paramList.Add(new NpgsqlParameter("event_id", groupId));
@@ -66,10 +68,35 @@
             this.ExecuteNonQuery(sb.ToString(), paramList);
         }
 
+        #endregion
+
+        #region Select
+
+        public string GetGroupId(string groupId, DateTime eventTime)
+        {
+            List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
+            {
+                new NpgsqlParameter()
+                {
+                    ParameterName = "event_id",
+                    Value = groupId
+                },
+                 new NpgsqlParameter()
+                 {
+                    ParameterName = "event_entry_date",
+                    Value = eventTime
+                }
+            };
+            string sql = "SELECT event_id,event_host_user_name FROM tran_event_overview WHERE event_id=@event_id AND event_entry_date=@event_entry_date;";
+            return this.ExecuteReader(sql, paramList);
+        }
+
+        #endregion
+
 
         #region private
 
-        private void ExecuteNonQuery(string sql, List<NpgsqlParameter> parameters)
+        private void ExecuteNonQuery(string sql, List<NpgsqlParameter> parameters = null)
         {
             using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
             {
@@ -88,7 +115,7 @@
                         if (parameters != null)
                             parameters.ForEach(item =>
                             {
-                                command.Parameters.AddWithValue(item.ParameterName,item.Value);
+                                command.Parameters.AddWithValue(item.ParameterName, item.Value);
                             });
 
                         command.ExecuteNonQuery();
@@ -104,8 +131,9 @@
             }
         }
 
-        private void ExecuteReader(string sql)
+        private string ExecuteReader(string sql, List<NpgsqlParameter> parameters = null)
         {
+            string result = string.Empty;
             using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
             {
                 con.Open();
@@ -116,13 +144,24 @@
                         Connection = con,
                         CommandText = sql
                     };
-                    var result = command.ExecuteReader();
+                    if (parameters != null)
+                        parameters.ForEach(item =>
+                        {
+                            command.Parameters.AddWithValue(item.ParameterName, item.Value);
+                        });
+                    var readerResult = command.ExecuteReader();
+                    while (readerResult.Read())
+                    {
+                        result += readerResult.GetString(0);
+                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    throw ex;
                 }
                 con.Close();
             }
+            return result;
         }
 
         #endregion

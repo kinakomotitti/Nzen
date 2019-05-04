@@ -15,7 +15,9 @@
             <div class="container">
                 <div class="col-md-4 ml-auto mr-auto">
 
-
+                    <div>
+                        <label class="label-danger" >@ViewData["ErrorMessage"]</label>
+                    </div>
                     <form id="forprezenter" class="form" asp-controller="Home" asp-action="PresenterPrepare" hidden>
                         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @id = "inputUserName2", @placeholder = "name" })
                         @Html.TextBoxFor(model => model.GroupId, new { @class = "form-control", @id = "inputGroupId2", @placeholder = "groupID" })

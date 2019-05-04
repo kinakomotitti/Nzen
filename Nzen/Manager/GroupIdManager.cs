@@ -51,6 +51,11 @@
             return string.Empty;
         }
 
+        public bool IsExistGroupId(string groupId)
+        {
+            return string.IsNullOrEmpty(DatabaseManager.Executor.GetGroupId(groupId, DateTime.Now))==false;
+        }
+
         #endregion
 
         #region private
