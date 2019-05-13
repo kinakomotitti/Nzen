@@ -39,7 +39,7 @@
         #region presenter
 
         [HttpPost]
-        public IActionResult PresenterPrepare([Bind("Content")]HomeModel model)
+        public IActionResult PresenterPrepare(HomeModel model)
         {
             if (string.IsNullOrEmpty(model.GroupId))
             {

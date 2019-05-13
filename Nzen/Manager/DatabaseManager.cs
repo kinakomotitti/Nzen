@@ -84,7 +84,7 @@
                  new NpgsqlParameter()
                  {
                     ParameterName = "event_entry_date",
-                    Value = eventTime
+                    Value = eventTime.Date
                 }
             };
             string sql = "SELECT event_id,event_host_user_name FROM tran_event_overview WHERE event_id=@event_id AND event_entry_date=@event_entry_date;";

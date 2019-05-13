@@ -1,6 +1,6 @@
 -- Project Name : noname
 -- Date/Time    : 2019/05/02 14:27:42
--- RDBMS Type   : PostgreSQL
+-- RDBMS Type   : kinakomotittiQL
 -- Application  : A5:SQL Mk-2
 
 /*
@@ -15,7 +15,7 @@ drop table if exists tran_event_info_detail cascade;
 
 -- Table: public.tran_event_info_detail
 
-DROP TABLE public.tran_event_info_detail;
+DROP TABLE if exists public.tran_event_info_detail;
 
 CREATE TABLE public.tran_event_info_detail
 (
@@ -36,7 +36,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.tran_event_info_detail
-    OWNER to postgres;
+    OWNER to kinakomotitti;
 COMMENT ON TABLE public.tran_event_info_detail
     IS 'イベント情報詳細';
 
@@ -99,7 +99,6 @@ create table mst_code (
 ) ;
 
 comment on table tran_event_info_detail is 'イベント情報詳細';
-comment on column tran_event_info_detail."レコードNo" is 'ID';
 comment on column tran_event_info_detail.group_id is 'グループコード';
 comment on column tran_event_info_detail.group_entry_date is 'グループ登録日時';
 comment on column tran_event_info_detail.info_type is '情報種別';
