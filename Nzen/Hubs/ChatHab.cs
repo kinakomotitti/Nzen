@@ -47,6 +47,24 @@
 
         #endregion
 
+        #region Save Presenter Contents
+
+        public Task SaveContents(string user, string groupId, string contents)
+        {
+            if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(groupId) || string.IsNullOrEmpty(contents))
+            {
+                return Task.Run(() => LogManager.Writer.Debug("contents are null."));
+            }
+
+            return Task.Run(() =>
+            {
+                DatabaseManager.Executor.InsertEventContents(user, groupId, contents, "presentor");
+            });
+
+        }
+
+        #endregion
+
         #region Controller
 
         public override async Task OnConnectedAsync()

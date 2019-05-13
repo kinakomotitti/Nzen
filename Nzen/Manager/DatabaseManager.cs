@@ -15,13 +15,13 @@
 
         #region Insert
 
-        public void InsertEventContents(string userName, string group, string contents)
+        public void InsertEventContents(string userName, string group, string message, string type="audience")
         {
             var paramList = new List<NpgsqlParameter>();
             paramList.Add(new NpgsqlParameter("group_id", group));
             paramList.Add(new NpgsqlParameter("group_entry_date", DateTime.Now));
-            paramList.Add(new NpgsqlParameter("data", "test"));
-            paramList.Add(new NpgsqlParameter("info_type", contents));
+            paramList.Add(new NpgsqlParameter("data", message));
+            paramList.Add(new NpgsqlParameter("info_type", type));
             paramList.Add(new NpgsqlParameter("insert_date", DateTime.Now));
             paramList.Add(new NpgsqlParameter("insert_user", userName));
             paramList.Add(new NpgsqlParameter("update_date", DateTime.Now));

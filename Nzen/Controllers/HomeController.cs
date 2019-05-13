@@ -57,6 +57,7 @@
                     return View("Index", new HomeModel());
                 }
             }
+            ModelState.Clear();
             return View(model);
         }
 

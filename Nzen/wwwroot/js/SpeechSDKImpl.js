@@ -1,4 +1,6 @@
-﻿// status fields and start button in UI
+﻿"use strict";
+
+// status fields and start button in UI
 var phraseDiv;
 var startRecognizeOnceAsyncButton;
 
@@ -8,6 +10,24 @@ var authorizationToken;
 var SpeechSDK;
 var recognizer;
 var lastRecognized = "";
+
+var connection = connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+connection.on("ReceiveMessage", function (user, message) {
+    nicoscreen.add(message);
+});
+
+connection.start().catch(function (err) {
+    return console.error(err.toString());
+});
+
+window.onload = function () {
+    var groupId = document.getElementById("groupId").value;
+    connection.invoke("JoinGroup", groupId).catch(function (err) {
+        return console.error(err.toString());
+    });
+};
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -39,9 +59,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     recognizer.recognized = function (s, e) {
         window.console.log(e);
-        lastRecognized += e.result.text + "\r\n";
-        phraseDiv.innerHTML = e.result.text;//lastRecognized;
+
+        var groupId = document.getElementById("groupId").value;
+        var userId = document.getElementById("userName").value;
+        var content = e.result.text;
+        if (content === 'undefined') {
+            phraseDiv.innerHTML = e.result.text;//lastRecognized;
+        }
+        else {
+            connection.invoke("SaveContents", userId, groupId, content).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+
     };
 
-     recognizer.startContinuousRecognitionAsync();
+    recognizer.startContinuousRecognitionAsync();
 });
