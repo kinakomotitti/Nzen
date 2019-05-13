@@ -7,11 +7,13 @@
             </div>
             <div class="content-center">
                 <div class="container">
-                    <h1 class="title">This is waiting room</h1>
+                    <h1 class="title">waiting room</h1>
                     <div class="text-center">
-                        <a href="https://www.slideshare.net/" class="btn btn-primary btn-icon btn-round">
-                            <i class="fab ">s</i>
-                        </a>
+                            <a href="https://www.slideshare.net/" class="btn btn-primary btn-icon btn-round"  target="_blank"  rel="SlidShare">
+                                <i class="fab">
+                                    <img src="~/images/slideshare-icon.svg" />
+                                </i>
+                            </a>
                     </div>
                 </div>
             </div>
@@ -28,7 +30,7 @@
 
                     <div class="row">
                         <label for="comment">embeded iflame:</label>
-                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "comment", @row = 5, @placeholder = "ここにSlideshareのリンクを貼り付けて下さい" })
+                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "comment", @row = 5, @placeholder = "ここにSlideshareのEmbedリンクを貼り付けて下さい" })
                         <button class="btn btn-primary btn-round" type="submit">
                             Start Presentation
                         </button>
