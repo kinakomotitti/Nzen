@@ -7,16 +7,23 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using Nzen.Manager;
     using Nzen.Models;
     #endregion
 
     public class HomeController : Controller
     {
-        #region Common
+        private ILogger<HomeController> _logger;
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
 
+        #region Common
 
         [HttpGet]
         public IActionResult Index()
@@ -47,7 +54,7 @@
             }
             else
             {
-                if (GroupIdManager.Instance.IsExistGroupId(model.GroupId)==false)
+                if (GroupIdManager.Instance.IsExistGroupId(model.GroupId) == false)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("指定されたグループIDは存在しません。\r\n");
@@ -75,6 +82,9 @@
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            var error = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            _logger.LogError(error?.Error, $"{HttpContext.User.Identity.Name}が{DateTime.Now.ToString()}にエラーを発生させたよ！");
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
