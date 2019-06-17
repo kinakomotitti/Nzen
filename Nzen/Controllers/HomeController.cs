@@ -72,7 +72,7 @@
             }
             ModelState.Clear();
 
-            ViewData["GtoupId"] = model.GroupId;
+            ViewData["GroupId"] = model.GroupId;
             return View(model);
         }
 
