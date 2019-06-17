@@ -4,13 +4,29 @@
 -- Application  : A5:SQL Mk-2
 
 /*
-  BackupToTempTable, RestoreFromTempTable‹^—–½—ß‚ª•t‰Á‚³‚ê‚Ä‚¢‚Ü‚·B
-  ‚±‚ê‚É‚æ‚èAdrop table, create table Œã‚àƒf[ƒ^‚ªc‚è‚Ü‚·B
-  ‚±‚Ì‹@”\‚Íˆê“I‚É $$TableName ‚Ì‚æ‚¤‚Èˆêƒe[ƒuƒ‹‚ğì¬‚µ‚Ü‚·B
+  BackupToTempTable, RestoreFromTempTableç–‘ä¼¼å‘½ä»¤ãŒä»˜åŠ ã•ã‚Œã¦ã„ã¾ã™ã€‚
+  ã“ã‚Œã«ã‚ˆã‚Šã€drop table, create table å¾Œã‚‚ãƒ‡ãƒ¼ã‚¿ãŒæ®‹ã‚Šã¾ã™ã€‚
+  ã“ã®æ©Ÿèƒ½ã¯ä¸€æ™‚çš„ã« $$TableName ã®ã‚ˆã†ãªä¸€æ™‚ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆã—ã¾ã™ã€‚
 */
 
--- ƒCƒxƒ“ƒgî•ñÚ×
+-- ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±è©³ç´°
 --* BackupToTempTable
+
+CREATE ROLE kinakomotitti WITH
+	LOGIN
+	SUPERUSER
+	CREATEDB
+	CREATEROLE
+	PASSWORD 'kinakomotitti';
+
+CREATE DATABASE "nzen_db"
+    WITH 
+    OWNER = kinakomotitti
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+\c nzen_db;
+
 drop table if exists tran_event_info_detail cascade;
 
 -- Table: public.tran_event_info_detail
@@ -38,36 +54,36 @@ TABLESPACE pg_default;
 ALTER TABLE public.tran_event_info_detail
     OWNER to kinakomotitti;
 COMMENT ON TABLE public.tran_event_info_detail
-    IS 'ƒCƒxƒ“ƒgî•ñÚ×';
+    IS 'ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±è©³ç´°';
 
 COMMENT ON COLUMN public.tran_event_info_detail.serial_no
     IS 'ID';
 
 COMMENT ON COLUMN public.tran_event_info_detail.group_id
-    IS 'ƒOƒ‹[ƒvƒR[ƒh';
+    IS 'ã‚°ãƒ«ãƒ¼ãƒ—ã‚³ãƒ¼ãƒ‰';
 
 COMMENT ON COLUMN public.tran_event_info_detail.group_entry_date
-    IS 'ƒOƒ‹[ƒv“o˜^“ú';
+    IS 'ã‚°ãƒ«ãƒ¼ãƒ—ç™»éŒ²æ—¥æ™‚';
 
 COMMENT ON COLUMN public.tran_event_info_detail.info_type
-    IS 'î•ñí•Ê';
+    IS 'æƒ…å ±ç¨®åˆ¥';
 
 COMMENT ON COLUMN public.tran_event_info_detail.data
-    IS '“à—e';
+    IS 'å†…å®¹';
 
 COMMENT ON COLUMN public.tran_event_info_detail.insert_date
-    IS '“o˜^“ú';
+    IS 'ç™»éŒ²æ—¥æ™‚';
 
 COMMENT ON COLUMN public.tran_event_info_detail.insert_user
-    IS '“o˜^Ò';
+    IS 'ç™»éŒ²è€…';
 
 COMMENT ON COLUMN public.tran_event_info_detail.update_date
-    IS 'XV“ú';
+    IS 'æ›´æ–°æ—¥æ™‚';
 
 COMMENT ON COLUMN public.tran_event_info_detail.update_user
-    IS 'XVÒ';
+    IS 'æ›´æ–°è€…';
 
--- ƒCƒxƒ“ƒgî•ñŠT—v
+-- ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±æ¦‚è¦
 --* BackupToTempTable
 drop table if exists tran_event_overview cascade;
 
@@ -83,7 +99,7 @@ create table tran_event_overview (
   , constraint tran_event_overview_PKC primary key (event_id,event_entry_date)
 ) ;
 
--- ƒR[ƒhƒ}ƒXƒ^
+-- ã‚³ãƒ¼ãƒ‰ãƒã‚¹ã‚¿
 --* BackupToTempTable
 drop table if exists mst_code cascade;
 
@@ -98,29 +114,29 @@ create table mst_code (
   , constraint mst_code_PKC primary key (code_id)
 ) ;
 
-comment on table tran_event_info_detail is 'ƒCƒxƒ“ƒgî•ñÚ×';
-comment on column tran_event_info_detail.group_id is 'ƒOƒ‹[ƒvƒR[ƒh';
-comment on column tran_event_info_detail.group_entry_date is 'ƒOƒ‹[ƒv“o˜^“ú';
-comment on column tran_event_info_detail.info_type is 'î•ñí•Ê';
-comment on column tran_event_info_detail.data is '“à—e';
-comment on column tran_event_info_detail.insert_date is '“o˜^“ú';
-comment on column tran_event_info_detail.insert_user is '“o˜^Ò';
-comment on column tran_event_info_detail.update_date is 'XV“ú';
-comment on column tran_event_info_detail.update_user is 'XVÒ';
+comment on table tran_event_info_detail is 'ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±è©³ç´°';
+comment on column tran_event_info_detail.group_id is 'ã‚°ãƒ«ãƒ¼ãƒ—ã‚³ãƒ¼ãƒ‰';
+comment on column tran_event_info_detail.group_entry_date is 'ã‚°ãƒ«ãƒ¼ãƒ—ç™»éŒ²æ—¥æ™‚';
+comment on column tran_event_info_detail.info_type is 'æƒ…å ±ç¨®åˆ¥';
+comment on column tran_event_info_detail.data is 'å†…å®¹';
+comment on column tran_event_info_detail.insert_date is 'ç™»éŒ²æ—¥æ™‚';
+comment on column tran_event_info_detail.insert_user is 'ç™»éŒ²è€…';
+comment on column tran_event_info_detail.update_date is 'æ›´æ–°æ—¥æ™‚';
+comment on column tran_event_info_detail.update_user is 'æ›´æ–°è€…';
 
-comment on table tran_event_overview is 'ƒCƒxƒ“ƒgî•ñŠT—v';
-comment on column tran_event_overview.event_id is 'ƒOƒ‹[ƒvƒR[ƒh';
-comment on column tran_event_overview.event_entry_date is 'ƒOƒ‹[ƒv“o˜^“ú';
-comment on column tran_event_overview.event_host_user_name is 'åÃÒ';
-comment on column tran_event_overview.insert_date is '“o˜^“ú';
-comment on column tran_event_overview.insert_user is '“o˜^Ò';
-comment on column tran_event_overview.update_date is 'XV“ú';
-comment on column tran_event_overview.update_user is 'XVÒ';
+comment on table tran_event_overview is 'ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±æ¦‚è¦';
+comment on column tran_event_overview.event_id is 'ã‚°ãƒ«ãƒ¼ãƒ—ã‚³ãƒ¼ãƒ‰';
+comment on column tran_event_overview.event_entry_date is 'ã‚°ãƒ«ãƒ¼ãƒ—ç™»éŒ²æ—¥æ™‚';
+comment on column tran_event_overview.event_host_user_name is 'ä¸»å‚¬è€…';
+comment on column tran_event_overview.insert_date is 'ç™»éŒ²æ—¥æ™‚';
+comment on column tran_event_overview.insert_user is 'ç™»éŒ²è€…';
+comment on column tran_event_overview.update_date is 'æ›´æ–°æ—¥æ™‚';
+comment on column tran_event_overview.update_user is 'æ›´æ–°è€…';
 
-comment on table mst_code is 'ƒR[ƒhƒ}ƒXƒ^';
+comment on table mst_code is 'ã‚³ãƒ¼ãƒ‰ãƒã‚¹ã‚¿';
 comment on column mst_code.code_id is 'code_id';
 comment on column mst_code.code_name is 'code_name';
-comment on column mst_code.insert_date is '“o˜^“ú';
-comment on column mst_code.insert_user is '“o˜^Ò';
-comment on column mst_code.update_date is 'XV“ú';
-comment on column mst_code.update_user is 'XVÒ';
+comment on column mst_code.insert_date is 'ç™»éŒ²æ—¥æ™‚';
+comment on column mst_code.insert_user is 'ç™»éŒ²è€…';
+comment on column mst_code.update_date is 'æ›´æ–°æ—¥æ™‚';
+comment on column mst_code.update_user is 'æ›´æ–°è€…';

@@ -30,8 +30,16 @@
                 <div class="col-md-4 ml-auto mr-auto">
 
                     <form id="forpresenter" class="form" asp-controller="Home" asp-action="PresenterPrepare" hidden>
-                        @Html.TextBoxFor(model => model.UserName, new {  @id = "inputUserName2" })
-                        @Html.TextBoxFor(model => model.GroupId, new {@id = "inputGroupId2" })
+                        @Html.TextBoxFor(model => model.UserName, new { @id = "inputUserName2" })
+                        @if (string.IsNullOrWhiteSpace(Model.GroupId))
+                        {
+                            @Html.TextBoxFor(model => model.GroupId, new { @id = "inputGroupId2", disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(model => model.GroupId, new { @id = "inputGroupId2"})
+
+                        }
                     </form>
 
                     <form id="foruser" class="form" asp-controller="Home" asp-action="ChatRoom">

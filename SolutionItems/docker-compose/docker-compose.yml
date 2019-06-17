@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  app: #任意の名前を付ける。
+    image: dpage/pgadmin4
+    env_file:
+      - environment.env
+    deploy:
+      resources: #リソースの制限
+        limits: #CPU,メモリの上限設定
+          cpus: '1.-0'
+          memory: 100M
+        reservations: #CPU,メモリの上限設定
+          cpus: '0.25'
+          memory: 25M
+    logging:
+      driver: json-file #json-file(default),syslog,none
+      options:
+        max-file: "10"
+        max-size: "200k"
+    networks: 
+      - nzen_nw
+    ports:
+      - 10080:80 #host:container
+
+  nzen_db: #任意の名前を付ける。
+    image: postgres:11
+    logging:
+      driver: json-file #json-file(default),syslog,none
+      options:
+        max-file: "10"
+        max-size: "200k"
+    volumes: #docker for windows環境では、マウント対象の権限に注意が必要
+      - ./nzen-db:/docker-entrypoint-initdb.d
+    networks:
+      nzen_nw:
+    ports:
+      - 5432:5432 #host:container
+  
+networks:
+  nzen_nw: #ネットワークの名前を指定
+    external: false

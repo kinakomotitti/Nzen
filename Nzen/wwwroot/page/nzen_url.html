@@ -10,9 +10,16 @@
     
     <div id="qrcode" style="text-align:center;vertical-align:middle"></div>
     <script>
-        var url = location.href;
-        var text = url.replace('/page/nzen_url.html', '');
-        $('#qrcode').qrcode({width: 500, height: 500, text: text});
+        var groupId = window.location.search.slice(1).split('=')[1];
+        if (groupId === 'undefined') {
+            groupId = '';
+        }
+        var host = window.location.origin;
+        
+
+
+        var url = host+'/invite/'+groupId
+        $('#qrcode').qrcode({width: 500, height: 500, text: url});
     </script>
 </body>
 </html>

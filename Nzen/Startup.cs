@@ -56,8 +56,13 @@ namespace Nzen
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Invite",
+                    template: "Invite/{groupId}",
+                    defaults: new { Controller = "Home", action = "Invite" });
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
             });
 
             app.UseSignalR(route =>

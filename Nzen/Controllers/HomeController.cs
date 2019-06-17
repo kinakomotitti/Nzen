@@ -31,6 +31,12 @@
             return View(new HomeModel());
         }
 
+        [HttpGet]
+        public IActionResult Invite(string groupId)
+        {
+            return View("Index",new HomeModel() { GroupId= groupId});
+        }
+
         #endregion
 
         #region user
@@ -65,6 +71,8 @@
                 }
             }
             ModelState.Clear();
+
+            ViewData["GtoupId"] = model.GroupId;
             return View(model);
         }
 
