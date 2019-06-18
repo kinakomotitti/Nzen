@@ -1,17 +1,23 @@
 ﻿@model HomeModel
-
+@{
+    Layout = "~/Views/Shared/_Layout_chat.cshtml";
+}
 
 <link href="~/css/Contact.css" rel="stylesheet" />
 
 <main role="main" class="container">
     <div id="frame">
         <div class="content">
-            <div class="contact-profile">
-                <p>User ID : @Model.UserName , Room ID : @Model.GroupId</p>
+            <div class="contact-profile" style="color:white">
+                User ID：
+                <btn class="btn btn-info btn-sm">@Model.UserName</btn>
+                イベントグループID：
+                <btn class="btn btn-info btn-sm">@Model.GroupId</btn>
+                にログイン中！
             </div>
+
             <div class="messages">
-                <ul id="messagesList" style="padding-left: 0px !important">
-                </ul>
+                <ul id="messagesList" style="padding-left: 0px !important"></ul>
             </div>
             <div class="message-input">
                 <div class="wrap">

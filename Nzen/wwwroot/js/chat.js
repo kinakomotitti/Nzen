@@ -22,13 +22,20 @@ connection.start().catch(function (err) {
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
 
-    newMessage();
+    if (document.getElementById("messageInput").value != '') {
+        newMessage();
+        document.getElementById("messageInput").value = '';
+    }
 
 });
 
 window.addEventListener('keydown', function (e) {
     if (e.which == 13) {
-        newMessage();
+
+        if (document.getElementById("messageInput").value != '') {
+            newMessage();
+            document.getElementById("messageInput").value = '';
+        }
         return false;
     }
 });
