@@ -1,2 +1,1 @@
-# Nzen
-ニコニコ動画風コメント流れる機能付きプレゼン共有ツール
+#[Nzen wiki](https://github.com/kinakomotitti/Nzen/wiki)
