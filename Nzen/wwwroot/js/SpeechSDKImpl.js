@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return console.error(err.toString());
             });
         }
-
     };
 
     recognizer.startContinuousRecognitionAsync();
