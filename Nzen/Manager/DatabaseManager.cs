@@ -90,6 +90,25 @@
             string sql = "SELECT event_id,event_host_user_name FROM tran_event_overview WHERE event_id=@event_id AND event_entry_date=@event_entry_date;";
             return this.ExecuteReader(sql, paramList);
         }
+    
+        public string GetPresentationText(string groupId, DateTime eventTime)
+        {
+            List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
+            {
+                new NpgsqlParameter()
+                {
+                    ParameterName = "group_id",
+                    Value = groupId
+                },
+                 new NpgsqlParameter()
+                 {
+                    ParameterName = "group_entry_date",
+                    Value = eventTime.Date
+                }
+            };
+            string sql = "SELECT data FROM tran_event_info_detail WHERE info_type='presentor' AND group_id=@group_id AND group_entry_date=@group_entry_date;";
+            return this.ExecuteReader(sql, paramList);
+        }
 
         #endregion
 
