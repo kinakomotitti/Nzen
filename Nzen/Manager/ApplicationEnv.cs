@@ -20,7 +20,10 @@
                 {
                     temp = config.GetValue<string>(item.Name.ToString());
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    LogManager.Writer.Debug(ex.ToString());
+                }
                 if (temp != null) item.SetValue(this, temp);
             }
         }
