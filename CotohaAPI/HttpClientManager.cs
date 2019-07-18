@@ -26,6 +26,7 @@
         /// </summary>
         public static string BearerValue { get; set; } = string.Empty;
 
+        #region CommonMethod
 
 
         /// <summary>
@@ -78,7 +79,7 @@
             return result;
         }
 
-
+        #endregion
 
         #region CotohaAPI
 
@@ -87,7 +88,7 @@
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static async Task<AccessTokenResponce> GetAccessToken()
+        public static async Task<AccessTokenResponce> GetAccessTokenAsync()
         {
             var url = Settings.URL.AccessTokenUrl;
             var request = new AccessTokenRequest()
@@ -104,7 +105,6 @@
             //set the bearer value for the next API call.
             HttpClientManager.BearerValue = 
                 (responce.StatusCode == HttpStatusCode.Created )? responce.AccessToken : string.Empty;
-
             return responce;
         }
 
@@ -114,7 +114,7 @@
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static async Task<AccessTokenResponce> GetAccessToken(AccessTokenRequest request)
+        public static async Task<AccessTokenResponce> GetAccessTokenAsync(AccessTokenRequest request)
         {
             var url = Settings.URL.AccessTokenUrl;
             AccessTokenResponce responce = 
@@ -136,13 +136,18 @@
         /// キーワード抽出APIの結果。
         /// 事前にBearerを発行していない場合は、HttpStatusCode.NotAcceptableがResponceオブジェクトに格納されて返却される。
         /// </returns>
-        public static async Task<KeyWordResponce> ExtractionKeywords(KeyWordRequest request)
+        public static async Task<KeyWordResponce> ExtractionKeywordsAsync(KeyWordRequest request)
         {
             var url = Settings.URL.KeywordUrl;
             return await ExecutePostAsyncWithBearer<KeyWordRequest, KeyWordResponce>(url, request);
         }
 
-        public static async Task<SentimentResponce> SentimentAnalysis(SentimentRequest request)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static async Task<SentimentResponce> SentimentAnalysisAsync(SentimentRequest request)
         {
             var url = Settings.URL.SentimentUrl;
             return await ExecutePostAsyncWithBearer<SentimentRequest, SentimentResponce>(url, request);

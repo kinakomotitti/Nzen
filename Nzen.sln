@@ -33,9 +33,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{F2C9C070-293
 		SolutionItems\doc\presenter03.png = SolutionItems\doc\presenter03.png
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CotohaAPI", "CotohaAPI\CotohaAPI.csproj", "{50C95DE0-605D-473A-AD38-D3193E625E46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CotohaAPI", "CotohaAPI\CotohaAPI.csproj", "{50C95DE0-605D-473A-AD38-D3193E625E46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CotohaAPIUnitTest", "CotohaAPIUnitTest\CotohaAPIUnitTest.csproj", "{01164784-19AE-4405-A800-6BEBC59DC932}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CotohaAPIUnitTest", "CotohaAPIUnitTest\CotohaAPIUnitTest.csproj", "{01164784-19AE-4405-A800-6BEBC59DC932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{91441072-12E8-4D24-B1EE-00C2B2EB157E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{01164784-19AE-4405-A800-6BEBC59DC932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01164784-19AE-4405-A800-6BEBC59DC932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01164784-19AE-4405-A800-6BEBC59DC932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91441072-12E8-4D24-B1EE-00C2B2EB157E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91441072-12E8-4D24-B1EE-00C2B2EB157E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91441072-12E8-4D24-B1EE-00C2B2EB157E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91441072-12E8-4D24-B1EE-00C2B2EB157E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

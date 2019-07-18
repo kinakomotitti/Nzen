@@ -3,6 +3,7 @@ using CotohaAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Net;
+using System.Threading;
 using System.Web;
 
 namespace CotohaAPIUnitTest
@@ -14,27 +15,23 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Cace()
         {
-            HttpClientManager.GetAccessToken(new AccessTokenRequest()
-            {
-                GrantType = "client_credentials",
-                ClientId = CotohaAPI.Settings.AccountInfo.DeveloperClientId,
-                ClientSecret = CotohaAPI.Settings.AccountInfo.DeveloperClientSecret
-            }).Wait();
+                HttpClientManager.GetAccessTokenAsync().Wait();
+                System.Diagnostics.Debugger.Break();
 
-
-            var result = HttpClientManager.SentimentAnalysis(new SentimentRequest()
+            var result = HttpClientManager.SentimentAnalysisAsync(new SentimentRequest()
             {
-                Sentence= "人生の春を謳歌しています"
+                Sentence = "人生の春を謳歌しています"
             }).Result;
 
-
+            //TODO TEST 単体実行では成功するが、VSから一括実行すると、成功しない（NullReferrenceの例外）
             Assert.AreEqual("Positive", result.Result.Sentiment);
         }
+
 
         [TestMethod]
         public void Failure_BearerEmptyCase()
         {
-            var result = HttpClientManager.SentimentAnalysis(new SentimentRequest()
+            var result = HttpClientManager.SentimentAnalysisAsync(new SentimentRequest()
             {
                 Sentence = "人生の春を謳歌しています"
             }).Result;

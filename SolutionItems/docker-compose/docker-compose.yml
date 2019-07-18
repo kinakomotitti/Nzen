@@ -30,7 +30,7 @@ services:
         max-file: "10"
         max-size: "200k"
     volumes: #docker for windows環境では、マウント対象の権限に注意が必要
-      - ./nzen-db:/docker-entrypoint-initdb.d
+      - D:\GitHub\Nzen\SolutionItems\docker-compose\nzen-db:/docker-entrypoint-initdb.d
     networks:
       nzen_nw:
     ports:

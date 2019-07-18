@@ -33,21 +33,28 @@ namespace Nzen.Controllers
         {
             AnalysisModel model = new AnalysisModel();
 
-            var tokenResult = HttpClientManager.GetAccessToken().Result;
+            await ExecuteAnalysis(model);
 
-            if (tokenResult.StatusCode != HttpStatusCode.Created) return View("Index");
+            return View("Result", model);
+        }
 
-            model.KeywordResult= await HttpClientManager.ExtractionKeywords(new CotohaAPI.Models.KeyWordRequest()
+
+        private async Task ExecuteAnalysis(AnalysisModel model)
+        {
+            var tokenResult = HttpClientManager.GetAccessTokenAsync().Result;
+
+            if (tokenResult.StatusCode == HttpStatusCode.Created)
             {
+                model.KeywordResult = await HttpClientManager.ExtractionKeywordsAsync(new CotohaAPI.Models.KeyWordRequest()
+                {
 
-            });
+                });
 
-            model.SentimentResult= await HttpClientManager.SentimentAnalysis(new CotohaAPI.Models.SentimentRequest()
-            {
+                model.SentimentResult = await HttpClientManager.SentimentAnalysisAsync(new CotohaAPI.Models.SentimentRequest()
+                {
 
-            });
-
-            return View("Result");
+                });
+            }
         }
     }
 }

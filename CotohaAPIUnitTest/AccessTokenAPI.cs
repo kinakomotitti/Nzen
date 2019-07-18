@@ -15,7 +15,7 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Pattern01Cace()
         {
-            var task = HttpClientManager.GetAccessToken(new AccessTokenRequest()
+            var task = HttpClientManager.GetAccessTokenAsync(new AccessTokenRequest()
             {
                 GrantType = "client_credentials",
                 ClientId = CotohaAPI.Settings.AccountInfo.DeveloperClientId,
@@ -30,7 +30,7 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Pattern02Cace()
         {
-            var task = HttpClientManager.GetAccessToken();
+            var task = HttpClientManager.GetAccessTokenAsync();
             var result = task.Result;
 
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);

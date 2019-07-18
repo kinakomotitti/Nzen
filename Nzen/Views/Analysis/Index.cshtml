@@ -1,20 +1,38 @@
-﻿@{
-}
+﻿@model AnalysisModel
 
-    <form id="test" asp-controller="Analysis" asp-action="ResultData"  method ="post">
-        <div>
-            <div>
-                GroupID
-                <input />
+    <form id="show_result" asp-controller="Analysis" asp-action="ResultData" method="post">
+
+        <div class="wrapper">
+            <div class="page-header page-header-small">
+                <div class="page-header-image" data-parallax="true" style="background-image: url('/images/analysis.jpg');">
+                </div>
+                <div class="content-center">
+                    <div class="container">
+                        <h1 class="title">Analysis</h1>
+                    </div>
+                </div>
             </div>
-            <div>
-                UserID
-                <input />
-            </div>
-            <div>
-                発表日
-                <input />
+            <div class="section section-team text-center">
+                <div class="container">
+                    <div class="input-group  input-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08"></i>
+                            </span>
+                        </div>
+                        @Html.TextBoxFor(model => model.info.GroupId, new { @class = "form-control", @id = "inputUserName", @placeholder = "groupID" })
+                    </div>
+
+                    <div class="input-group  input-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="now-ui-icons ui-1_calendar-60"></i>
+                            </span>
+                        </div>
+                        @Html.TextBoxFor(model => model.info.EventDate, new { @id="eventDate",@class = "form-control date-picker ", @placeholder = "mm/dd/yyyy" })
+                    </div>
+                </div>
+                <input id="showResultButton" type="submit" class="btn btn-primary btn-round" value="Show Result" form="show_result" />
             </div>
         </div>
-        <input type="submit" value="BUTTON" form="test"/>
     </form>

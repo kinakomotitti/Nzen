@@ -14,17 +14,17 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Cace()
         {
-            HttpClientManager.GetAccessToken().Wait();
+            if (string.IsNullOrEmpty(HttpClientManager.BearerValue))
+                HttpClientManager.GetAccessTokenAsync().Wait();
 
 
-            var result = HttpClientManager.ExtractionKeywords(new KeyWordRequest()
+            var result = HttpClientManager.ExtractionKeywordsAsync(new KeyWordRequest()
             {
                 Document = "レストランで昼食を食べた。",
                 Type = "default",
                 DoSegment = true,
                 MaxKeywordNum = 2
             }).Result;
-
 
             Assert.AreEqual(2, result.Result.Length);
 
@@ -37,7 +37,8 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Failure_BearerEmptyCase()
         {
-            var result = HttpClientManager.ExtractionKeywords(new KeyWordRequest()
+            HttpClientManager.BearerValue = string.Empty;
+            var result = HttpClientManager.ExtractionKeywordsAsync(new KeyWordRequest()
             {
                 Document = "レストランで昼食を食べた。",
                 Type = "default",
@@ -45,7 +46,7 @@ namespace CotohaAPIUnitTest
                 MaxKeywordNum = 2
             }).Result;
 
-            Assert.AreEqual(result.StatusCode, HttpStatusCode.NotAcceptable);
+            Assert.AreEqual(HttpStatusCode.NotAcceptable, result.StatusCode );
         }
 
 

@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Nzen.Models;
     #endregion
 
     public class DatabaseManager
@@ -15,7 +16,7 @@
 
         #region Insert
 
-        public void InsertEventContents(string userName, string group, string message, string type="audience")
+        public void InsertEventContents(string userName, string group, string message, string type = "audience")
         {
             var paramList = new List<NpgsqlParameter>();
             paramList.Add(new NpgsqlParameter("group_id", group));
@@ -87,10 +88,16 @@
                     Value = eventTime.Date
                 }
             };
-            string sql = "SELECT event_id,event_host_user_name FROM tran_event_overview WHERE event_id=@event_id AND event_entry_date=@event_entry_date;";
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT event_id,event_host_user_name ");
+            sb.Append("FROM tran_event_overview ");
+            sb.Append("WHERE event_id=@event_id AND");
+            sb.Append("      event_entry_date=@event_entry_date;");
+
+            string sql = sb.ToString();
             return this.ExecuteReader(sql, paramList);
         }
-    
+
         public string GetPresentationText(string groupId, DateTime eventTime)
         {
             List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
@@ -106,8 +113,42 @@
                     Value = eventTime.Date
                 }
             };
-            string sql = "SELECT data FROM tran_event_info_detail WHERE info_type='presentor' AND group_id=@group_id AND group_entry_date=@group_entry_date;";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT data ");
+            sb.Append("FROM tran_event_info_detail ");
+            sb.Append("WHERE info_type='presentor' AND ");
+            sb.Append("      group_id=@group_id AND ");
+            sb.Append("      group_entry_date=@group_entry_date;");
+
+            string sql = sb.ToString();
             return this.ExecuteReader(sql, paramList);
+        }
+
+        public List<EventDataModel> GetEventData(string groupId, DateTime eventTime)
+        {
+            List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
+            {
+                new NpgsqlParameter()
+                {
+                    ParameterName = "group_id",
+                    Value = groupId
+                },
+                 new NpgsqlParameter()
+                 {
+                    ParameterName = "group_entry_date",
+                    Value = eventTime.Date
+                }
+            };
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT serial_no,data ");
+            sb.Append("FROM tran_event_info_detail ");
+            sb.Append("WHERE group_id=@group_id AND ");
+            sb.Append("      group_entry_date=@group_entry_date;");
+
+            string sql = sb.ToString();
+            return this.ExecuteReaderWithPoco<EventDataModel>(sql, paramList);
         }
 
         #endregion
@@ -153,6 +194,60 @@
         private string ExecuteReader(string sql, List<NpgsqlParameter> parameters = null)
         {
             string result = string.Empty;
+
+            this.ExecuteReaderCore((readerResult) => {
+                while (readerResult.Read())
+                {
+                    result += readerResult.GetString(0);
+                }
+            }, sql, parameters);
+
+            return result;
+        }
+
+        private List<T> ExecuteReaderWithPoco<T>(string sql, List<NpgsqlParameter> parameters = null) where T : new()
+        {
+            List<T> resultList = new List<T>();
+            this.ExecuteReaderCore((readerResult) =>
+            {
+                if (readerResult.HasRows)
+                {
+                    while (readerResult.Read())
+                    {
+                        var result = new T();
+                        for (int counter = 0; counter < readerResult.VisibleFieldCount - 1; counter++)
+                        {
+                            var resultProperty = typeof(T).GetProperty(readerResult.GetName(counter));
+
+                            if (resultProperty.PropertyType == typeof(int))
+                            {
+                                resultProperty.SetValue(result, readerResult.GetInt32(counter));
+
+                            }
+                            else if (resultProperty.PropertyType == typeof(string))
+                            {
+                                resultProperty.SetValue(result, readerResult.GetString(counter));
+
+                            }
+                            else
+                            {
+                                //date
+                                resultProperty.SetValue(result, readerResult.GetDateTime(counter));
+
+                            }
+                        }
+                        resultList.Add(result);
+                    }
+                }
+            }, sql, parameters);
+                
+            return resultList;
+        }
+
+
+
+        private void ExecuteReaderCore(Action<NpgsqlDataReader> action, string sql, List<NpgsqlParameter> parameters = null)
+        {
             using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
             {
                 con.Open();
@@ -169,10 +264,7 @@
                             command.Parameters.AddWithValue(item.ParameterName, item.Value);
                         });
                     var readerResult = command.ExecuteReader();
-                    while (readerResult.Read())
-                    {
-                        result += readerResult.GetString(0);
-                    }
+                    action(readerResult);
                 }
                 catch (Exception ex)
                 {
@@ -180,9 +272,7 @@
                 }
                 con.Close();
             }
-            return result;
         }
-
         #endregion
 
     }

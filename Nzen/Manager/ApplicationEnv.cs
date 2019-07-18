@@ -1,7 +1,6 @@
 ﻿namespace Nzen.Manager
 {
     #region using
-    using Microsoft.Extensions.Configuration;
     using System;
     #endregion
 
@@ -11,14 +10,14 @@
 
         private ApplicationEnv()
         {
-            var config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+            
             var propList = typeof(ApplicationEnv).GetProperties();
             foreach (var item in propList)
             {
                 var temp = string.Empty;
                 try
                 {
-                    temp = config.GetValue<string>(item.Name.ToString());
+                    temp = Environment.GetEnvironmentVariable(item.Name);
                 }
                 catch (Exception ex)
                 {

@@ -1,13 +1,17 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Npgsql;
-using Nzen.Manager;
-using System;
-
-namespace NzenUnitTest
+﻿namespace NzenUnitTest.Manager.DatabaseManagerTest
 {
+    #region using
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Microsoft.Extensions.Configuration;
+    using Nzen.Manager;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using Npgsql;
+    #endregion
+
     [TestClass]
-    public class GetPresentationTextTest
+    public class GetEventData
     {
         [TestInitialize]
         public void TestInitFunction()
@@ -16,20 +20,21 @@ namespace NzenUnitTest
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod2()
         {
             try
             {
                 using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
                 {
                     var command = con.CreateCommand();
-                    command.CommandText = "INSERT INTO tran_event_info_detail  (group_id, group_entry_date,data,info_type) VALUES ('54OJ','2019-06-17','test data sample','presentor')";
+                    command.CommandText = "INSERT INTO tran_event_info_detail  ( group_id, group_entry_date,data) VALUES ('test1','2019-01-01','test data sample')";
                     con.Open();
                     command.ExecuteNonQuery();
                     con.Close();
                 }
-                var actual = DatabaseManager.Executor.GetPresentationText("54OJ", DateTime.Parse("2019-06-17"));
-                Assert.AreEqual("test data sample", actual);
+                var actual = DatabaseManager.Executor.GetEventData("test1", new DateTime(2019, 1, 1));
+                Assert.IsTrue(actual.Count==1);
+
             }
             catch (Exception ex)
             {
@@ -40,7 +45,7 @@ namespace NzenUnitTest
                 using (NpgsqlConnection con = new NpgsqlConnection(ApplicationEnv.Env.ConnectionString))
                 {
                     var command = con.CreateCommand();
-                    command.CommandText = "DELETE FROM tran_event_info_detail WHERE group_entry_date='2019-06-17'";
+                    command.CommandText = "DELETE FROM tran_event_info_detail WHERE group_entry_date='2019-01-01'";
                     con.Open();
                     command.ExecuteNonQuery();
                     con.Close();
