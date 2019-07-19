@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CotohaAPI.Models
+namespace CommonWebAPI.Models
 {
     public class BaseResponceModel
     {

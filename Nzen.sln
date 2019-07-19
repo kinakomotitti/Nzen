@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CotohaAPIUnitTest", "UnitTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NzenUnitTest", "UnitTest\NzenUnitTest\NzenUnitTest.csproj", "{7E758892-C607-4ACF-B34E-29D16B538BA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonWebAPI", "CommonWebAPI\CommonWebAPI.csproj", "{551D6F66-71B1-44E5-8D67-A03E3914FE69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{7E758892-C607-4ACF-B34E-29D16B538BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E758892-C607-4ACF-B34E-29D16B538BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E758892-C607-4ACF-B34E-29D16B538BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551D6F66-71B1-44E5-8D67-A03E3914FE69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551D6F66-71B1-44E5-8D67-A03E3914FE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551D6F66-71B1-44E5-8D67-A03E3914FE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551D6F66-71B1-44E5-8D67-A03E3914FE69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

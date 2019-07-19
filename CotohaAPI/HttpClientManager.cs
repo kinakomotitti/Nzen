@@ -26,70 +26,6 @@
         /// </summary>
         public static string BearerValue { get; set; } = string.Empty;
 
-        #region CommonMethod
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="S"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public static async Task<S> ExecutePostAsyncWithBearer<T, S>(string url, T request) where T : BaseRequestModel
-                                                                                            where S : BaseResponceModel, new()
-        {
-            //when this method is called without bearer value, return null.
-            if (string.IsNullOrWhiteSpace(HttpClientManager.BearerValue))
-            {
-                return new S()
-                {
-                    StatusCode = HttpStatusCode.NotAcceptable
-                };
-            }
-
-            HttpClientManager.Client.DefaultRequestHeaders.Accept.Clear();
-            HttpClientManager.Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpClientManager.BearerValue);
-
-            return await ExecutePostAsync<T, S>(url, request);
-        }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="S"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public static async Task<S> ExecutePostAsync<T, S>(string url, T request) where T : BaseRequestModel
-                                                                                       where S : BaseResponceModel, new()
-        {
-            var content = new StringContent(new Converter<T>().ToJson(request),
-                                            Encoding.UTF8,
-                                            "application/json");
-
-            var response = await HttpClientManager.Client.PostAsync(url, content);
-            S result = new S();
-
-            if ((response.StatusCode == HttpStatusCode.OK) ||
-                (response.StatusCode == HttpStatusCode.Accepted) ||
-                (response.StatusCode == HttpStatusCode.Created) ||
-                (response.StatusCode == HttpStatusCode.NonAuthoritativeInformation) ||
-                (response.StatusCode == HttpStatusCode.NoContent) ||
-                (response.StatusCode == HttpStatusCode.ResetContent) ||
-                (response.StatusCode == HttpStatusCode.PartialContent))
-                result = JsonConvert.DeserializeObject<S>(await response.Content.ReadAsStringAsync());
-            result.StatusCode = response.StatusCode;
-
-            return result;
-        }
-
-        #endregion
-
         #region CotohaAPI
 
         /// <summary>
@@ -109,7 +45,7 @@
 
 
             AccessTokenResponce responce =
-                await ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
+                await CommonWebAPI.HttpClientManager.ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
 
             //set the bearer value for the next API call.
             HttpClientManager.BearerValue =
@@ -127,7 +63,7 @@
         {
             var url = Settings.URL.AccessTokenUrl;
             AccessTokenResponce responce =
-                await ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
+                await CommonWebAPI.HttpClientManager.ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
 
             //set the bearer value for the next API call.
             HttpClientManager.BearerValue =
@@ -148,7 +84,7 @@
         public static async Task<KeyWordResponce> ExtractionKeywordsAsync(KeyWordRequest request)
         {
             var url = Settings.URL.KeywordUrl;
-            return await ExecutePostAsyncWithBearer<KeyWordRequest, KeyWordResponce>(url, request);
+            return await CommonWebAPI.HttpClientManager.ExecutePostAsyncWithBearer<KeyWordRequest, KeyWordResponce>(url, request);
         }
 
         /// <summary>
@@ -159,7 +95,7 @@
         public static async Task<SentimentResponce> SentimentAnalysisAsync(SentimentRequest request)
         {
             var url = Settings.URL.SentimentUrl;
-            return await ExecutePostAsyncWithBearer<SentimentRequest, SentimentResponce>(url, request);
+            return await CommonWebAPI.HttpClientManager.ExecutePostAsyncWithBearer<SentimentRequest, SentimentResponce>(url, request);
         }
 
         #endregion

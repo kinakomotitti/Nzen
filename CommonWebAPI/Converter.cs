@@ -1,4 +1,4 @@
-﻿namespace CotohaAPI
+﻿namespace CommonWebAPI
 {
     #region using
     using Newtonsoft.Json;
