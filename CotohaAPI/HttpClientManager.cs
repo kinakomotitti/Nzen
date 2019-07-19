@@ -37,7 +37,7 @@
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static async Task<S> ExecutePostAsyncWithBearer<T,S>(string url, T request) where T : BaseRequestModel
+        public static async Task<S> ExecutePostAsyncWithBearer<T, S>(string url, T request) where T : BaseRequestModel
                                                                                             where S : BaseResponceModel, new()
         {
             //when this method is called without bearer value, return null.
@@ -73,9 +73,18 @@
                                             "application/json");
 
             var response = await HttpClientManager.Client.PostAsync(url, content);
+            S result = new S();
 
-            S result = JsonConvert.DeserializeObject<S>(await response.Content.ReadAsStringAsync());
+            if ((response.StatusCode == HttpStatusCode.OK) ||
+                (response.StatusCode == HttpStatusCode.Accepted) ||
+                (response.StatusCode == HttpStatusCode.Created) ||
+                (response.StatusCode == HttpStatusCode.NonAuthoritativeInformation) ||
+                (response.StatusCode == HttpStatusCode.NoContent) ||
+                (response.StatusCode == HttpStatusCode.ResetContent) ||
+                (response.StatusCode == HttpStatusCode.PartialContent))
+                result = JsonConvert.DeserializeObject<S>(await response.Content.ReadAsStringAsync());
             result.StatusCode = response.StatusCode;
+
             return result;
         }
 
@@ -99,12 +108,12 @@
             };
 
 
-            AccessTokenResponce responce = 
-                await ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url,request);
+            AccessTokenResponce responce =
+                await ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
 
             //set the bearer value for the next API call.
-            HttpClientManager.BearerValue = 
-                (responce.StatusCode == HttpStatusCode.Created )? responce.AccessToken : string.Empty;
+            HttpClientManager.BearerValue =
+                (responce.StatusCode == HttpStatusCode.Created) ? responce.AccessToken : string.Empty;
             return responce;
         }
 
@@ -117,11 +126,11 @@
         public static async Task<AccessTokenResponce> GetAccessTokenAsync(AccessTokenRequest request)
         {
             var url = Settings.URL.AccessTokenUrl;
-            AccessTokenResponce responce = 
-                await ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url,request);
+            AccessTokenResponce responce =
+                await ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
 
             //set the bearer value for the next API call.
-            HttpClientManager.BearerValue = 
+            HttpClientManager.BearerValue =
                 responce.StatusCode == HttpStatusCode.Created ? responce.AccessToken : string.Empty;
 
             return responce;

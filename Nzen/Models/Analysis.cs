@@ -16,23 +16,47 @@
         /// <summary>
         /// 
         /// </summary>
-        public KeyWordResponce KeywordResult { get; set; }
+        public KeyWordResponce KeywordResult { get; set; } = new KeyWordResponce();
 
         /// <summary>
         /// 
         /// </summary>
-        public SentimentResponce SentimentResult { get; set; }
+        public SentimentResponce SentimentResult { get; set; } = new SentimentResponce();
 
         /// <summary>
         /// 
         /// </summary>
-        public TargetEventInfo info { get; set; }
+        public TargetEventInfo Info { get; set; } = new TargetEventInfo();
+
+        public PresenterInfo Presenter { get; set; } = new PresenterInfo();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class TargetEventInfo
     {
         public string GroupId { get; set; }
 
         public DateTime EventDate { get; set; }
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class PresenterInfo
+    {
+        public List<string> SpeachText { get; set; } = new List<string>();
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class AudienceInfo
+    {
+        public List<string> Comments { get; set; } = new List<string>();
+
     }
 }

@@ -10,7 +10,7 @@
     public  class KeyWordRequest:BaseRequestModel
     {
         [JsonProperty("document")]
-        public string Document { get; set; }
+        public List<string> Document { get; set; } = new List<string>();
 
         [JsonProperty("type")]
         public string Type { get; set; }

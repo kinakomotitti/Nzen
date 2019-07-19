@@ -8,7 +8,7 @@ namespace CotohaAPI.Models
     public  class KeyWordResponce:BaseResponceModel
     {
         [JsonProperty("result")]
-        public KeywordResult[] Result { get; set; }
+        public List<KeywordResult> Result { get; set; } = new List<KeywordResult>();
 
         [JsonProperty("status")]
         public long Status { get; set; }

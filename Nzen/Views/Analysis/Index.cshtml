@@ -20,7 +20,7 @@
                                 <i class="now-ui-icons users_circle-08"></i>
                             </span>
                         </div>
-                        @Html.TextBoxFor(model => model.info.GroupId, new { @class = "form-control", @id = "inputUserName", @placeholder = "groupID" })
+                        @Html.TextBoxFor(model => model.Info.GroupId, new { @class = "form-control", @id = "inputUserName", @placeholder = "groupID" })
                     </div>
 
                     <div class="input-group  input-lg">
@@ -29,7 +29,7 @@
                                 <i class="now-ui-icons ui-1_calendar-60"></i>
                             </span>
                         </div>
-                        @Html.TextBoxFor(model => model.info.EventDate, new { @id="eventDate",@class = "form-control date-picker ", @placeholder = "mm/dd/yyyy" })
+                        @Html.TextBoxFor(model => model.Info.EventDate, new { @id="eventDate",@class = "form-control date-picker ", @placeholder = "mm/dd/yyyy" })
                     </div>
                 </div>
                 <input id="showResultButton" type="submit" class="btn btn-primary btn-round" value="Show Result" form="show_result" />

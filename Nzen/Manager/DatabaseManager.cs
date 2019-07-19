@@ -73,6 +73,12 @@
 
         #region Select
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="eventTime"></param>
+        /// <returns></returns>
         public string GetGroupId(string groupId, DateTime eventTime)
         {
             List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
@@ -98,6 +104,12 @@
             return this.ExecuteReader(sql, paramList);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="eventTime"></param>
+        /// <returns></returns>
         public string GetPresentationText(string groupId, DateTime eventTime)
         {
             List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
@@ -125,6 +137,12 @@
             return this.ExecuteReader(sql, paramList);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="eventTime"></param>
+        /// <returns></returns>
         public List<EventDataModel> GetEventData(string groupId, DateTime eventTime)
         {
             List<NpgsqlParameter> paramList = new List<NpgsqlParameter>()
@@ -142,7 +160,7 @@
             };
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT serial_no,data ");
+            sb.Append("SELECT serial_no,info_type,data ");
             sb.Append("FROM tran_event_info_detail ");
             sb.Append("WHERE group_id=@group_id AND ");
             sb.Append("      group_entry_date=@group_entry_date;");
@@ -215,7 +233,7 @@
                     while (readerResult.Read())
                     {
                         var result = new T();
-                        for (int counter = 0; counter < readerResult.VisibleFieldCount - 1; counter++)
+                        for (int counter = 0; counter < readerResult.VisibleFieldCount; counter++)
                         {
                             var resultProperty = typeof(T).GetProperty(readerResult.GetName(counter));
 
