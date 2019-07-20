@@ -1,7 +1,7 @@
-﻿using System;
-namespace Nzen.Controllers
+﻿namespace Nzen.Controllers
 {
     #region using
+
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -9,25 +9,40 @@ namespace Nzen.Controllers
     using System.Net;
     using System.Text;
     using System.Threading.Tasks;
-    using CotohaAPI;
+
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+
     using Nzen.Manager;
     using Nzen.Models;
+    using CotohaAPI;
+    using TextAnalysisServiceAPI;
+
     #endregion
 
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class AnalysisController : Controller
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Index()
         {
             return View("Index");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> ResultData(TargetEventInfo info)
         {
@@ -48,13 +63,18 @@ namespace Nzen.Controllers
             return View("Result", model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         private async Task ExecuteAnalysis(AnalysisModel model)
         {
-            var tokenResult = await HttpClientManager.GetAccessTokenAsync();
+            var tokenResult = await CotohaApiManager.GetAccessTokenAsync();
 
             if (tokenResult.StatusCode == HttpStatusCode.Created)
             {
-                model.KeywordResult = await HttpClientManager.ExtractionKeywordsAsync(new CotohaAPI.Models.KeyWordRequest()
+                model.KeywordResult = await CotohaApiManager.ExtractionKeywordsAsync(new CotohaAPI.Models.KeyWordRequest()
                 {
                     Document = model.Presenter.SpeachText,
                     Type = "kuzure",
@@ -62,10 +82,8 @@ namespace Nzen.Controllers
                     MaxKeywordNum = 10
                 });
 
-                //model.SentimentResult = await HttpClientManager.SentimentAnalysisAsync(new CotohaAPI.Models.SentimentRequest()
-                //{
-                //    Sentence = model.Presenter.SpeachText
-                //}) ;
+                model.KeyPhraseExtractResult = 
+                    await TextAnalyticsManager.ExecuteKeyPhraseExtractAsync(string.Join("。", model.Presenter.SpeachText));
             }
         }
     }

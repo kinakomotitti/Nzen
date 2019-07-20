@@ -15,11 +15,11 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Cace()
         {
-            if (string.IsNullOrEmpty(HttpClientManager.BearerValue))
-                HttpClientManager.GetAccessTokenAsync().Wait();
+            if (string.IsNullOrEmpty(CotohaApiManager.BearerValue))
+                CotohaApiManager.GetAccessTokenAsync().Wait();
 
 
-            var result = HttpClientManager.ExtractionKeywordsAsync(new KeyWordRequest()
+            var result = CotohaApiManager.ExtractionKeywordsAsync(new KeyWordRequest()
             {
                 Document = new List<string>() { "レストランで昼食を食べた。"},
                 Type = "kuzure",
@@ -38,11 +38,11 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Failure_LongTextCace()
         {
-            if (string.IsNullOrEmpty(HttpClientManager.BearerValue))
-                HttpClientManager.GetAccessTokenAsync().Wait();
+            if (string.IsNullOrEmpty(CotohaApiManager.BearerValue))
+                CotohaApiManager.GetAccessTokenAsync().Wait();
 
 
-            var result = HttpClientManager.ExtractionKeywordsAsync(new KeyWordRequest()
+            var result = CotohaApiManager.ExtractionKeywordsAsync(new KeyWordRequest()
             {
                 //282文字
                 Document = new List<string>()
@@ -64,8 +64,8 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Failure_BearerEmptyCase()
         {
-            HttpClientManager.BearerValue = string.Empty;
-            var result = HttpClientManager.ExtractionKeywordsAsync(new KeyWordRequest()
+            CotohaApiManager.BearerValue = string.Empty;
+            var result = CotohaApiManager.ExtractionKeywordsAsync(new KeyWordRequest()
             {
                 Document = new List<string>() { "レストランで昼食を食べた。" },
                 Type = "kuzure",

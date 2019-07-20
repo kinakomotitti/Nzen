@@ -58,6 +58,29 @@
         }
 
 
+        public static async Task<S> ExecutePostAsyncWithHeaderValue<T, S>(string url,
+                                                                          T request,
+                                                                          Dictionary<string, string> headers,
+                                                                          bool needBearer = false)
+            where T : BaseRequestModel
+            where S : BaseResponceModel, new()
+        {
+            if (needBearer == true &&
+                string.IsNullOrWhiteSpace(HttpClientManager.BearerValue) == true)
+
+                return new S() { StatusCode = HttpStatusCode.NotAcceptable };
+
+
+            HttpClientManager.Client.DefaultRequestHeaders.Accept.Clear();
+            foreach (var header in headers)
+            {
+                HttpClientManager.Client.DefaultRequestHeaders.Add(header.Key, header.Value);
+            }
+
+            return await ExecutePostAsync<T, S>(url, request);
+        }
+
+
 
         /// <summary>
         /// 

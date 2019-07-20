@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CotohaAPI\CotohaAPI.csproj" />
+    <ProjectReference Include="..\TextAnalysisServiceAPI\TextAnalysisServiceAPI.csproj" />
   </ItemGroup>
 
 </Project>

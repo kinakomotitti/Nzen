@@ -1,8 +1,11 @@
 ﻿namespace CotohaAPI
 {
     #region using
+    using CommonWebAPI;
     using CotohaAPI.Models;
+
     using Newtonsoft.Json;
+
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -15,7 +18,7 @@
     #endregion
 
 
-    public static class HttpClientManager
+    public static class CotohaApiManager
     {
 
         private static HttpClient Client = new HttpClient();
@@ -45,10 +48,10 @@
 
 
             AccessTokenResponce responce =
-                await CommonWebAPI.HttpClientManager.ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
+                await HttpClientManager.ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
 
             //set the bearer value for the next API call.
-            HttpClientManager.BearerValue =
+            CotohaApiManager.BearerValue =
                 (responce.StatusCode == HttpStatusCode.Created) ? responce.AccessToken : string.Empty;
             return responce;
         }
@@ -63,10 +66,10 @@
         {
             var url = Settings.URL.AccessTokenUrl;
             AccessTokenResponce responce =
-                await CommonWebAPI.HttpClientManager.ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
+                await HttpClientManager.ExecutePostAsync<AccessTokenRequest, AccessTokenResponce>(url, request);
 
             //set the bearer value for the next API call.
-            HttpClientManager.BearerValue =
+            CotohaApiManager.BearerValue =
                 responce.StatusCode == HttpStatusCode.Created ? responce.AccessToken : string.Empty;
 
             return responce;
@@ -84,7 +87,7 @@
         public static async Task<KeyWordResponce> ExtractionKeywordsAsync(KeyWordRequest request)
         {
             var url = Settings.URL.KeywordUrl;
-            return await CommonWebAPI.HttpClientManager.ExecutePostAsyncWithBearer<KeyWordRequest, KeyWordResponce>(url, request);
+            return await HttpClientManager.ExecutePostAsyncWithBearer<KeyWordRequest, KeyWordResponce>(url, request);
         }
 
         /// <summary>
@@ -95,7 +98,7 @@
         public static async Task<SentimentResponce> SentimentAnalysisAsync(SentimentRequest request)
         {
             var url = Settings.URL.SentimentUrl;
-            return await CommonWebAPI.HttpClientManager.ExecutePostAsyncWithBearer<SentimentRequest, SentimentResponce>(url, request);
+            return await HttpClientManager.ExecutePostAsyncWithBearer<SentimentRequest, SentimentResponce>(url, request);
         }
 
         #endregion

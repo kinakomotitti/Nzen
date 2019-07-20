@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using TextAnalysisServiceAPI.Models;
     #endregion
 
     /// <summary>
@@ -13,6 +14,9 @@
     /// </summary>
     public class AnalysisModel
     {
+
+        public KeyPhraseExtractResponce KeyPhraseExtractResult { get; set; } = new KeyPhraseExtractResponce();
+
         /// <summary>
         /// 
         /// </summary>

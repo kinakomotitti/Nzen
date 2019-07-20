@@ -15,7 +15,7 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Pattern01Cace()
         {
-            var task = HttpClientManager.GetAccessTokenAsync(new AccessTokenRequest()
+            var task = CotohaApiManager.GetAccessTokenAsync(new AccessTokenRequest()
             {
                 GrantType = "client_credentials",
                 ClientId = CotohaAPI.Settings.AccountInfo.DeveloperClientId,
@@ -24,17 +24,17 @@ namespace CotohaAPIUnitTest
 
             var result = task.Result;
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(HttpClientManager.BearerValue));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(CotohaApiManager.BearerValue));
         }
 
         [TestMethod]
         public void Success_Pattern02Cace()
         {
-            var task = HttpClientManager.GetAccessTokenAsync();
+            var task = CotohaApiManager.GetAccessTokenAsync();
             var result = task.Result;
 
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(HttpClientManager.BearerValue));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(CotohaApiManager.BearerValue));
         }
     }
 }

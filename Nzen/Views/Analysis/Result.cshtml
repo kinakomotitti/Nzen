@@ -1,15 +1,98 @@
 ﻿@model AnalysisModel
 
+<form id="show_result" asp-controller="Analysis" asp-action="ResultData" method="post">
 
-@foreach (var item in Model.KeywordResult.Result)
-{
-    <div>
-        @item.Form;
-        @item.Score;
+    <div class="wrapper">
+        @*ページヘッダー*@
+        <div class="page-header page-header-small">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('/images/analysis_result.jpg')">
+            </div>
+            <div class="content-center">
+                <div class="container">
+                    <h1 class="title">Analysis Result</h1>
+                </div>
+            </div>
+        </div>
+
+        @*結果コンテンツ*@
+        <div>
+
+            <div class="">
+                <div class=" text-left">
+                    <h4 class="card-title">基本情報</h4>
+
+                    <p class="card-text">@Model.Info.EventDate</p>
+                    <p class="card-text">@Model.Info.GroupId</p>
+                    <p class="card-text">その他情報（発表時間、参加者人数、コメント数、）</p>
+                </div>
+            </div>
+        </div>
+
+        <div >
+
+            <div class=" text-left  w-50 float-left">
+                <div class="text-center media-middle">
+                    <img class="text-center" src="~/images/keyword_header.jpg" />
+                </div>
+            </div>
+
+            <div class="content-center text-left float-right w-50">
+                <div class="text-center">
+                    <div class=" text-left pre-scrollable">
+                        <h4 class="card-title">発表のキーワード</h4>
+                        <ul>
+                            @foreach (var docs in Model.KeyPhraseExtractResult.Documents)
+                            {
+                                foreach (var keyphrases in docs.KeyPhrases)
+                                {
+                                    <li class="card-text">@keyphrases</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div >
+
+            <div class="content-center text-right  float-left w-50">
+                <div class="card  text-center">
+                    <div class="card-body text-left pre-scrollable">
+                        <h4 class="card-title">発表内容(Speach to Text)</h4>
+                        @foreach (var doc in Model.Presenter.SpeachText)
+                        {
+                            <p class="card-text">@doc</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card text-right  w-50  float-right">
+                <div class="text-center media-middle">
+                    <img class="card-img-top text-center" src="~/images/presentation2text_header.png">
+                </div>
+            </div>
+        </div>
+
+        <div >
+            <div class="card ">
+                <img class="card-img-top content-center" src="" style="height:40%">
+                <div class="card-body text-left" style="height:30rem; overflow:auto">
+                    <h4 class="card-title">参加者からのコメント(Speach to Text)</h4>
+                    @foreach (var doc in Model.Presenter.SpeachText)
+                    {
+                        <p class="card-text">
+
+                            時間：コメント みたいにする
+                        </p>
+                    }
+
+                </div>
+            </div>
+        </div>
     </div>
-}
+</form>
 
 
-<div>
-    @Model.SentimentResult.Result.Sentiment;
-</div>
+

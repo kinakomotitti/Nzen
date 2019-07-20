@@ -15,10 +15,10 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Success_Cace()
         {
-                HttpClientManager.GetAccessTokenAsync().Wait();
+                CotohaApiManager.GetAccessTokenAsync().Wait();
                 System.Diagnostics.Debugger.Break();
 
-            var result = HttpClientManager.SentimentAnalysisAsync(new SentimentRequest()
+            var result = CotohaApiManager.SentimentAnalysisAsync(new SentimentRequest()
             {
                 Sentence = "人生の春を謳歌しています"
             }).Result;
@@ -31,7 +31,7 @@ namespace CotohaAPIUnitTest
         [TestMethod]
         public void Failure_BearerEmptyCase()
         {
-            var result = HttpClientManager.SentimentAnalysisAsync(new SentimentRequest()
+            var result = CotohaApiManager.SentimentAnalysisAsync(new SentimentRequest()
             {
                 Sentence = "人生の春を謳歌しています"
             }).Result;
