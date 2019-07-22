@@ -10,7 +10,7 @@ EXPOSE 443
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["Nzen/Nzen.csproj", "Nzen/"]
+COPY ["Nzen/Nzen.csproj", "Nzen/"]	
 RUN dotnet restore "Nzen/Nzen.csproj"
 COPY . .
 WORKDIR "/src/Nzen"

@@ -30,7 +30,6 @@ namespace Nzen
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
             services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
@@ -52,7 +51,6 @@ namespace Nzen
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -83,7 +83,7 @@
                 });
 
                 model.KeyPhraseExtractResult = 
-                    await TextAnalyticsManager.ExecuteKeyPhraseExtractAsync(string.Join("。", model.Presenter.SpeachText));
+                    await TextAnalyticsManager.ExecuteJapaneseKeyPhraseExtractAsync(string.Join("。", model.Presenter.SpeachText));
             }
         }
     }
