@@ -31,15 +31,7 @@
 
                     <form id="forpresenter" class="form" asp-controller="Home" asp-action="PresenterPrepare" hidden>
                         @Html.TextBoxFor(model => model.UserName, new { @id = "inputUserName2" })
-                        @if (string.IsNullOrWhiteSpace(Model.GroupId))
-                        {
-                            @Html.TextBoxFor(model => model.GroupId, new { @id = "inputGroupId2", disabled = "disabled" })
-                        }
-                        else
-                        {
-                            @Html.TextBoxFor(model => model.GroupId, new { @id = "inputGroupId2"})
-
-                        }
+                        @Html.TextBoxFor(model => model.GroupId, new { @id = "inputGroupId2" })
                     </form>
 
                     <form id="foruser" class="form" asp-controller="Home" asp-action="ChatRoom">
@@ -73,7 +65,9 @@
                             <div class="card-footer text-center">
                                 <button id="joinPresenterButton" class="btn btn-secondary btn-round btn-lg btn-block" type="submit" form="forpresenter">Join as a presenter</button>
                             </div>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
